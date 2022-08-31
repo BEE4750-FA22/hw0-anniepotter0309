@@ -66,6 +66,7 @@ end
 ```julia
 x = rand(20, 1)
 ```
+# hi there
 
 ## Problem 3.2
 ```julia

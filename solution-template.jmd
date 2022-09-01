@@ -125,6 +125,7 @@ T = 100 # years
 import Pkg
 Pkg.activate(".")
 Pkg.instantiate()
+Pkg.add("Distributions")
 using Distributions
 
 log_dist = LogNormal(mu, sigma)

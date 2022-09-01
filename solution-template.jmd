@@ -26,16 +26,15 @@ function square_number(x)
 end
 ```
 ## Problem 1.2
-```julia
-"We can see that $x^2 =$ `j square_number(x)`."
-```
+We can see that $x^2 =$ `j square_number(x)`.
+
 ## Problem 1.3
 ```julia
 using Plots
-data = zeros(21, 2)
+data = zeros(21, 2);
 for i in -10:10
-  data[i, 1] = i
-  data[i, 2] = square_number(x[i])
+  data[i+11, 1] = i
+  data[i+11, 2] = square_number(x[i])
 end
 plot(data, label="square_number function", legend=:topright)
 ```
@@ -43,21 +42,23 @@ plot(data, label="square_number function", legend=:topright)
 # Problem 2
 
 ## Problem 2.1
-```julia
-"if x = a^2, then x/a = a"
-"if a is too high, then the average of x/a and a will lower a"
-"if a is too low, then the average of x/a and a will increase a"
-```
+If $ x = a^2 $, then $ x/a = a$ .
+If a is too high, then the average of $ x/a $ and a will lower a.
+If a is too low, then the average of $ x/a $ and a will increase a.
 
 ## Problem 2.2
 ```julia
 function newtonian_root(x, a)
+  if (a == 0 && x != 0)
+    return newtonian_root(x, 1)
+  end
   if (x/a - a) < 0.001
     return a
   end
   a = (x/a + a) / 2
   return newtonian_root(x, a)
 end 
+" `j newtonian_root()`."
 ```
 
 # Problem 3
@@ -120,6 +121,7 @@ b = 0.42
 mu = log(0.03)
 sigma = 0.005
 T = 100 # years
+x_0 = 0
 
 # load Julia package
 import Pkg
@@ -137,11 +139,12 @@ y_t = rand(log_dist, 100)
 function phos_dynam(a, y_t, b, q, T, x_0)
   x_t[1] = x_0
   t = zeros(T)
-  data = zeros(2, T)
+  data = zeros(T, 2)
   for i in 1:T
     t[i] = i
     x_t[i+1] = x_t[i] + a + y_t[i] + (x_t[i]^q / (1+x_t[i]^q)) - b*x_t[i]
     data[i] = [t[i]; x_t[i]]
+  end
   return x_t
 end
 ```
